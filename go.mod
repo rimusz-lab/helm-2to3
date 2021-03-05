@@ -12,7 +12,7 @@ require (
 	github.com/spf13/pflag v1.0.5
 	github.com/ugorji/go v1.1.4 // indirect
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
-	helm.sh/helm/v3 v3.5.2
+	helm.sh/helm/v3 v3.5.1
 	k8s.io/apimachinery v0.20.2
 	k8s.io/helm v2.17.0+incompatible
 )
