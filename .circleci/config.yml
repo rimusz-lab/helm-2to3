@@ -1,29 +1,4 @@
 version: 2
-jobs:
-  lint:
-    docker:
-      - image: koalaman/shellcheck-alpine
-    steps:
-      - checkout
-      - run:
-          name: lint
-          command: |
-            shellcheck -x scripts/tag.sh
-            shellcheck -x scripts/install_plugin.sh
-  untagged-build:
-    docker:
-      - image: circleci/golang:1.16
-    working_directory: /go/src/github.com/helm/helm-2to3
-    steps:
-      - checkout
-      - run: make build
-  tagged-build:
-    docker:
-      - image: circleci/golang:1.16
-    working_directory: /go/src/github.com/helm/helm-2to3
-    steps:
-      - checkout
-      - run: curl -sL https://raw.githubusercontent.com/goreleaser/get/master/get | VERSION=v0.158.0 bash
 workflows:
   version: 2
   untagged-build:
@@ -38,3 +13,34 @@ workflows:
               only: /^v.*/
             branches:
               ignore: /.*/
+jobs:
+  lint:
+    docker:
+      - image: koalaman/shellcheck-alpine
+    steps:
+      - checkout
+      - run:
+          name: lint
+          command: |
+            shellcheck -x scripts/tag.sh
+            shellcheck -x scripts/install_plugin.sh
+  untagged-build:
+    docker:
+      - image: circleci/golang:1.17
+        auth:
+          username: $DOCKER_USER
+          password: $DOCKER_PASS
+    working_directory: /go/src/github.com/helm/helm-2to3
+    steps:
+      - checkout
+      - run: make build
+  tagged-build:
+    docker:
+      - image: circleci/golang:1.17
+        auth:
+          username: $DOCKER_USER
+          password: $DOCKER_PASS
+    working_directory: /go/src/github.com/helm/helm-2to3
+    steps:
+      - checkout
+      - run: curl -sfL https://goreleaser.com/static/run | bash

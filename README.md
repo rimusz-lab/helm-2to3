@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Go Report Card](https://goreportcard.com/badge/github.com/helm/helm-2to3)](https://goreportcard.com/report/github.com/helm/helm-2to3)
-[![CircleCI](https://circleci.com/gh/helm/helm-2to3/tree/master.svg?style=svg)](https://circleci.com/gh/helm/helm-2to3/tree/master)
+[![CircleCI](https://circleci.com/gh/helm/helm-2to3/tree/main.svg?style=svg)](https://circleci.com/gh/helm/helm-2to3/tree/main)
 [![Release](https://img.shields.io/github/release/helm/helm-2to3.svg?style=flat-square)](https://github.com/helm/helm-2to3/releases/latest)
 
 ![diagram](./helm-2to3.png)
@@ -147,6 +147,7 @@ Flags:
       --delete-v2-releases         v2 release versions are deleted after migration. By default, the v2 release versions are retained
       --dry-run                    simulate a command
   -h, --help                       help for convert
+      --ignore-already-migrated    Ignore any already migrated release versions and continue migrating
       --kube-context string        name of the kubeconfig context to use
       --kubeconfig string          path to the kubeconfig file
   -l, --label string               label to select Tiller resources by (default "OWNER=TILLER")
@@ -268,11 +269,9 @@ $ kubectl get configmap -n kube-system -l "OWNER=TILLER" \
 
 If you would like to handle the build yourself, this is the recommended way to do it.
 
-You must first have [Go v1.13](http://golang.org) installed, and then you run:
+You must first have [Go v1.17](http://golang.org) installed, and then you run:
 
 ```console
-$ mkdir -p ${GOPATH}/src/github.com/helm
-$ cd $_
 $ git clone git@github.com:helm/helm-2to3.git
 $ cd helm-2to3
 $ make build
