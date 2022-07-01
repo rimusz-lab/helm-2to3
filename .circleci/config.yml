@@ -30,7 +30,7 @@ jobs:
         auth:
           username: $DOCKER_USER
           password: $DOCKER_PASS
-    working_directory: /go/src/github.com/helm/helm-2to3
+    working_directory: /go/src/github.com/rimusz-lab/helm-2to3
     steps:
       - checkout
       - run: make build
@@ -40,7 +40,7 @@ jobs:
         auth:
           username: $DOCKER_USER
           password: $DOCKER_PASS
-    working_directory: /go/src/github.com/helm/helm-2to3
+    working_directory: /go/src/github.com/rimusz-lab/helm-2to3
     steps:
       - checkout
       - run: curl -sfL https://goreleaser.com/static/run | bash
